@@ -1,7 +1,0 @@
-com\sabipay\wallet\controller\UserController.class
-com\sabipay\wallet\WalletApplication.class
-com\sabipay\wallet\entity\User.class
-com\sabipay\wallet\repository\UserRepository.class
-com\sabipay\wallet\SecurityConfig.class
-com\sabipay\wallet\controller\HelloController.class
-com\sabipay\wallet\service\UserService.class
