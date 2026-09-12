@@ -1,10 +1,592 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>SabiPay - Home</title><link rel="stylesheet" href="css/style.css"></head>
-<body><header class="topbar"><a class="brand" href="index.html"><span class="logo-mark small">S</span>SabiPay</a><a class="avatar" href="me.html">A</a></header>
-<main class="app-main"><section class="balance-card"><div>Available Balance <button class="balance-eye">👁</button></div><h1>₦125,000.00</h1><div class="balance-actions"><button>Add Money</button><button>Send Money</button></div></section>
-<section class="section"><div class="section-title"><h2>Quick Actions</h2></div><div class="service-grid">
-<a href="service.html"><span>💸</span>Transfer</a><a href="service.html"><span>📱</span>Airtime</a><a href="service.html"><span>💡</span>Bills</a><a href="service.html"><span>📈</span>Invest</a><a href="service.html"><span>🎰</span>Betting</a><a href="service.html"><span>💰</span>Loan</a></div></section>
-<section class="section"><div class="section-title"><h2>Recent Transactions</h2></div><div class="transaction-list">
-<div class="transaction"><span>💡</span><div><b>Electricity Bill</b><small>Today, 10:25 AM</small></div><strong>-₦5,000</strong></div>
-<div class="transaction"><span>🏦</span><div><b>Bank Transfer</b><small>Yesterday, 4:12 PM</small></div><strong>-₦20,000</strong></div></div></section></main>
-<nav class="bottom-nav"><a class="active" href="index.html">🏠<span>Home</span></a><a href="reward.html">🎁<span>Rewards</span></a><a href="service.html">🛠️<span>Services</span></a><a href="me.html">👤<span>Me</span></a></nav><script src="js/app.js"></script></body></html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SabiPay - Home</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         TOP NAVIGATION
+    ====================================== -->
+
+    <header class="topbar">
+
+        <a
+            class="brand"
+            href="index.html"
+        >
+
+            <span class="logo-mark small">S</span>
+
+            SabiPay
+
+        </a>
+
+
+        <a
+            class="avatar"
+            id="userAvatar"
+            href="me.html"
+        >
+            U
+        </a>
+
+    </header>
+
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="app-main">
+
+
+        <!-- =================================
+             BALANCE CARD
+        ================================== -->
+
+        <section class="balance-card">
+
+            <p>
+                Welcome,
+                <strong id="welcomeName">User</strong>
+                👋
+            </p>
+
+
+            <div>
+
+                <span>
+                    Available Balance
+                </span>
+
+
+                <button
+                    class="balance-eye"
+                    id="balanceEye"
+                    type="button"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+            <h1 id="balance">
+                ₦0.00
+            </h1>
+
+
+            <div class="balance-actions">
+
+                <button
+                    type="button"
+                    id="addMoneyBtn"
+                >
+                    Add Money
+                </button>
+
+
+                <button
+                    type="button"
+                    id="sendMoneyBtn"
+                >
+                    Send Money
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             QUICK ACTIONS
+        ================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+            </div>
+
+
+            <div class="service-grid">
+
+
+                <a href="service.html">
+
+                    <span>💸</span>
+
+                    Transfer
+
+                </a>
+
+
+                <a href="service.html">
+
+                    <span>📱</span>
+
+                    Airtime
+
+                </a>
+
+
+                <a href="service.html">
+
+                    <span>💡</span>
+
+                    Bills
+
+                </a>
+
+
+                <a href="service.html">
+
+                    <span>📈</span>
+
+                    Invest
+
+                </a>
+
+
+                <a href="service.html">
+
+                    <span>🎰</span>
+
+                    Betting
+
+                </a>
+
+
+                <a href="service.html">
+
+                    <span>💰</span>
+
+                    Loan
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================
+             RECENT TRANSACTIONS
+        ================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <h2>
+                    Recent Transactions
+                </h2>
+
+            </div>
+
+
+            <div
+                class="transaction-list"
+                id="transactionList"
+            >
+
+                <div class="transaction">
+
+                    <span>📭</span>
+
+
+                    <div>
+
+                        <b>
+                            No transactions yet
+                        </b>
+
+
+                        <small>
+                            Your transactions will appear here
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================
+         SEND MONEY MODAL
+    ====================================== -->
+
+    <div
+        class="modal-overlay"
+        id="sendMoneyModal"
+    >
+
+        <div class="transfer-modal">
+
+
+            <!-- Modal Header -->
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Send Money
+                    </h2>
+
+                    <p>
+                        Transfer money to a bank account
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="close-modal"
+                    id="closeSendMoney"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================
+                 SAVED BENEFICIARIES
+            ================================== -->
+
+            <div
+                id="beneficiarySection"
+                class="beneficiary-section"
+            >
+
+                <label>
+                    Saved Beneficiaries
+                </label>
+
+
+                <select id="beneficiarySelect">
+
+                    <option value="">
+                        Select a beneficiary
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =================================
+                 TRANSFER FORM
+            ================================== -->
+
+            <form id="transferForm">
+
+
+                <!-- BANK -->
+
+                <label for="bankSelect">
+                    Select Bank
+                </label>
+
+
+                <select
+                    id="bankSelect"
+                    required
+                >
+
+                    <option value="">
+                        Choose a bank
+                    </option>
+
+                    <option value="Access Bank">
+                        Access Bank
+                    </option>
+
+                    <option value="ALAT by Wema">
+                        ALAT by Wema
+                    </option>
+
+                    <option value="Citibank Nigeria">
+                        Citibank Nigeria
+                    </option>
+
+                    <option value="Ecobank Nigeria">
+                        Ecobank Nigeria
+                    </option>
+
+                    <option value="Fidelity Bank">
+                        Fidelity Bank
+                    </option>
+
+                    <option value="First Bank">
+                        First Bank
+                    </option>
+
+                    <option value="First City Monument Bank">
+                        FCMB
+                    </option>
+
+                    <option value="Globus Bank">
+                        Globus Bank
+                    </option>
+
+                    <option value="GTBank">
+                        GTBank
+                    </option>
+
+                    <option value="Heritage Bank">
+                        Heritage Bank
+                    </option>
+
+                    <option value="Keystone Bank">
+                        Keystone Bank
+                    </option>
+
+                    <option value="Kuda Bank">
+                        Kuda Bank
+                    </option>
+
+                    <option value="Moniepoint">
+                        Moniepoint
+                    </option>
+
+                    <option value="OPay">
+                        OPay
+                    </option>
+
+                    <option value="PalmPay">
+                        PalmPay
+                    </option>
+
+                    <option value="Polaris Bank">
+                        Polaris Bank
+                    </option>
+
+                    <option value="Premium Trust Bank">
+                        Premium Trust Bank
+                    </option>
+
+                    <option value="Providus Bank">
+                        Providus Bank
+                    </option>
+
+                    <option value="Stanbic IBTC">
+                        Stanbic IBTC
+                    </option>
+
+                    <option value="Sterling Bank">
+                        Sterling Bank
+                    </option>
+
+                    <option value="UBA">
+                        UBA
+                    </option>
+
+                    <option value="Union Bank">
+                        Union Bank
+                    </option>
+
+                    <option value="Unity Bank">
+                        Unity Bank
+                    </option>
+
+                    <option value="Wema Bank">
+                        Wema Bank
+                    </option>
+
+                    <option value="Zenith Bank">
+                        Zenith Bank
+                    </option>
+
+                </select>
+
+
+
+                <!-- ACCOUNT NUMBER -->
+
+                <label for="accountNumber">
+                    Account Number
+                </label>
+
+
+                <input
+                    id="accountNumber"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="Enter 10-digit account number"
+                    required
+                >
+
+
+
+                <!-- BENEFICIARY NAME -->
+
+                <label for="beneficiaryName">
+                    Beneficiary Name
+                </label>
+
+
+                <input
+                    id="beneficiaryName"
+                    type="text"
+                    placeholder="Enter account holder's name"
+                    required
+                >
+
+
+
+                <!-- AMOUNT -->
+
+                <label for="transferAmount">
+                    Amount
+                </label>
+
+
+                <input
+                    id="transferAmount"
+                    type="number"
+                    min="100"
+                    step="1"
+                    placeholder="₦ Enter amount"
+                    required
+                >
+
+
+
+                <!-- SAVE BENEFICIARY -->
+
+                <label class="save-beneficiary">
+
+                    <input
+                        type="checkbox"
+                        id="saveBeneficiary"
+                    >
+
+                    <span>
+                        Save this beneficiary
+                    </span>
+
+                </label>
+
+
+
+                <!-- TRANSFER BUTTON -->
+
+                <button
+                    class="primary-btn"
+                    type="submit"
+                >
+                    Continue Transfer
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         BOTTOM NAVIGATION
+    ====================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <a
+            class="active"
+            href="index.html"
+        >
+
+            🏠
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a href="reward.html">
+
+            🎁
+
+            <span>
+                Rewards
+            </span>
+
+        </a>
+
+
+        <a href="service.html">
+
+            🛠️
+
+            <span>
+                Services
+            </span>
+
+        </a>
+
+
+        <a href="me.html">
+
+            👤
+
+            <span>
+                Me
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
