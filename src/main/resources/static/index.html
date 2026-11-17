@@ -137,7 +137,7 @@
             <div class="service-grid">
 
 
-                <a href="service.html">
+                <a href="#" id="quickTransferBtn">
 
                     <span>💸</span>
 
@@ -146,7 +146,7 @@
                 </a>
 
 
-                <a href="service.html">
+                <a href="service.html?service=airtime">
 
                     <span>📱</span>
 
@@ -155,7 +155,7 @@
                 </a>
 
 
-                <a href="service.html">
+                <a href="service.html?service=bills">
 
                     <span>💡</span>
 
@@ -164,7 +164,7 @@
                 </a>
 
 
-                <a href="service.html">
+                <a href="service.html?service=invest">
 
                     <span>📈</span>
 
@@ -173,7 +173,7 @@
                 </a>
 
 
-                <a href="service.html">
+                <a href="service.html?service=betting">
 
                     <span>🎰</span>
 
@@ -182,7 +182,7 @@
                 </a>
 
 
-                <a href="service.html">
+                <a href="service.html?service=loans">
 
                     <span>💰</span>
 
@@ -243,6 +243,59 @@
 
 
     </main>
+
+
+
+    <!-- =====================================
+         ADD MONEY / FUND WALLET MODAL
+    ====================================== -->
+
+    <div
+        class="modal-overlay"
+        id="addMoneyModal"
+    >
+
+        <div class="transfer-modal">
+
+            <div class="modal-header">
+                <div>
+                    <h2>Fund Wallet</h2>
+                    <p>Add money to your SabiPay wallet</p>
+                </div>
+                <button
+                    class="close-modal"
+                    id="closeAddMoney"
+                    type="button"
+                >
+                    &times;
+                </button>
+            </div>
+
+            <form id="fundWalletForm" style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
+                <label for="fundAmount">
+                    Amount (₦)
+                </label>
+                <input
+                    id="fundAmount"
+                    type="number"
+                    min="1"
+                    step="any"
+                    placeholder="Enter amount (e.g. 1000)"
+                    required
+                >
+
+                <button
+                    class="primary-btn"
+                    type="submit"
+                    style="margin-top: 10px;"
+                >
+                    Fund Wallet
+                </button>
+            </form>
+
+        </div>
+
+    </div>
 
 
 
@@ -509,6 +562,31 @@
 
 
 
+                <!-- TRANSACTION PIN -->
+
+                <label for="transferPin">
+                    4-Digit Transaction PIN
+                </label>
+
+                <div class="password-wrap" style="position: relative;">
+                    <input
+                        id="transferPin"
+                        type="password"
+                        maxlength="4"
+                        pattern="[0-9]{4}"
+                        inputmode="numeric"
+                        placeholder="Enter 4-digit PIN"
+                        required
+                    >
+                    <button type="button" class="password-toggle" data-target="transferPin" title="Toggle PIN visibility">👁️</button>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; margin-top: 4px; margin-bottom: 12px;">
+                    <a href="#" id="forgotPinLink" style="font-size: 12px; color: var(--wine); font-weight: 600; text-decoration: underline;">Forgot PIN?</a>
+                </div>
+
+
+
                 <!-- TRANSFER BUTTON -->
 
                 <button
@@ -519,6 +597,44 @@
                 </button>
 
 
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         RESET PIN MODAL
+    ====================================== -->
+
+    <div class="modal-overlay" id="resetPinModal">
+
+        <div class="transfer-modal">
+
+            <div class="modal-header">
+                <div>
+                    <h2>Reset Transaction PIN</h2>
+                    <p>Enter your password to set a new 4-digit PIN</p>
+                </div>
+                <button class="close-modal" id="closeResetPin" type="button">&times;</button>
+            </div>
+
+            <form id="resetPinForm" style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
+                <label for="resetPassword">Account Password</label>
+                <div class="password-wrap" style="position: relative;">
+                    <input id="resetPassword" type="password" placeholder="Enter account password" required>
+                    <button type="button" class="password-toggle" data-target="resetPassword">👁️</button>
+                </div>
+
+                <label for="newPin">New 4-Digit PIN</label>
+                <div class="password-wrap" style="position: relative;">
+                    <input id="newPin" type="password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="Enter new 4-digit PIN" required>
+                    <button type="button" class="password-toggle" data-target="newPin">👁️</button>
+                </div>
+
+                <button class="primary-btn" type="submit" style="margin-top: 10px;">Update PIN</button>
             </form>
 
         </div>

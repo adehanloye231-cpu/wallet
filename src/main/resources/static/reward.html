@@ -9,32 +9,66 @@
 </head>
 
 <body>
-    <header class="topbar"><a class="brand" href="index.html"><span class="logo-mark small">S</span>SabiPay</a><a
-            class="avatar" href="me.html">A</a></header>
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="logo-mark small">S</span>SabiPay
+        </a>
+        <a class="avatar" id="rewardAvatar" href="me.html">A</a>
+    </header>
+
     <main class="app-main">
-        <section class="reward-card"><span>Your Reward Points</span>
-            <h1>2,450 <small>pts</small></h1><button class="primary-btn">Claim Reward</button>
+        <section class="reward-card">
+            <span>Your Reward Points</span>
+            <h1 id="rewardPointsDisplay">2,450 <small>pts</small></h1>
+            <p style="font-size: 13px; opacity: 0.95; margin: -6px 0 16px 0;">
+                Cash Value: <strong id="rewardCashValue">₦2,450.00</strong>
+            </p>
+            <button class="primary-btn" id="claimRewardBtn">Claim Reward to Wallet</button>
         </section>
+
         <section class="section">
             <div class="section-title">
                 <h2>Ways to Earn</h2>
             </div>
             <div class="reward-list">
-                <div><span>🎁</span>
-                    <div><b>Daily Bonus</b><small>Claim your daily reward</small></div><button>Claim</button>
+                <div>
+                    <span>🎁</span>
+                    <div>
+                        <b>Daily Login Bonus</b>
+                        <small id="dailyBonusSub">Claim your +100 daily reward points</small>
+                    </div>
+                    <button id="claimDailyBonusBtn" type="button">Claim</button>
                 </div>
-                <div><span>👥</span>
-                    <div><b>Refer a Friend</b><small>Invite friends and earn points</small></div><button>Invite</button>
+
+                <div>
+                    <span>👥</span>
+                    <div>
+                        <b>Refer a Friend</b>
+                        <small>Invite friends & earn 500 pts each</small>
+                    </div>
+                    <button id="referFriendBtn" type="button">Invite</button>
                 </div>
-                <div><span>💳</span>
-                    <div><b>Cashback</b><small>Earn rewards on eligible payments</small></div><button>View</button>
+
+                <div>
+                    <span>💳</span>
+                    <div>
+                        <b>Cashback</b>
+                        <small>Earn 2% cashback on airtime & bill payments</small>
+                    </div>
+                    <button id="cashbackBtn" type="button">View</button>
                 </div>
             </div>
         </section>
     </main>
-    <nav class="bottom-nav"><a href="index.html">🏠<span>Home</span></a><a class="active"
-            href="reward.html">🎁<span>Rewards</span></a><a href="service.html">🛠️<span>Services</span></a><a
-            href="me.html">👤<span>Me</span></a></nav>
+
+    <nav class="bottom-nav">
+        <a href="index.html">🏠<span>Home</span></a>
+        <a class="active" href="reward.html">🎁<span>Rewards</span></a>
+        <a href="service.html">🛠️<span>Services</span></a>
+        <a href="me.html">👤<span>Me</span></a>
+    </nav>
+
+    <script src="js/app.js"></script>
 </body>
 
 </html>

@@ -18,17 +18,32 @@
         <section class="auth-card">
             <h2>Create your account</h2>
             <p class="muted">Join SabiPay and manage your money easily.</p>
-            <form id="signupForm"><label>Full Name</label><input id="signupName" type="text"
-                    placeholder="Enter your full name" required>
-                <label>Email</label><input id="signupEmail" type="email" placeholder="Enter your email" required>
+            <form id="signupForm">
+                <label>Full Name</label>
+                <input id="signupName" type="text" placeholder="Enter your full name" required>
+
+                <label>Email</label>
+                <input id="signupEmail" type="email" placeholder="Enter your email" required>
+
                 <label>Password</label>
-                <div class="password-wrap"><input id="signupPassword" type="password" placeholder="Create a password"
-                        required minlength="6"><button type="button" class="password-toggle"
-                        data-target="signupPassword">Show</button></div>
+                <div class="password-wrap">
+                    <input id="signupPassword" type="password" placeholder="Create a password" required minlength="6">
+                    <button type="button" class="password-toggle" data-target="signupPassword" title="Toggle password visibility">👁️</button>
+                </div>
+
                 <label>Confirm Password</label>
-                <div class="password-wrap"><input id="signupConfirm" type="password" placeholder="Confirm your password"
-                        required minlength="6"><button type="button" class="password-toggle"
-                        data-target="signupConfirm">Show</button></div>
+                <div class="password-wrap">
+                    <input id="signupConfirm" type="password" placeholder="Confirm your password" required minlength="6">
+                    <button type="button" class="password-toggle" data-target="signupConfirm" title="Toggle password visibility">👁️</button>
+                </div>
+
+                <label>Create 4-Digit Transaction PIN</label>
+                <div class="password-wrap">
+                    <input id="signupPin" type="password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="Enter 4-digit PIN (e.g. 1234)" required>
+                    <button type="button" class="password-toggle" data-target="signupPin" title="Toggle PIN visibility">👁️</button>
+                </div>
+                <small style="display:block; color:#888; margin-top:-6px; margin-bottom:14px; font-size:12px;">This PIN is required to authorize all future transfers & payments.</small>
+
                 <button class="primary-btn" type="submit">SIGN UP</button>
             </form>
             <p class="switch-auth">Already have an account? <a href="login.html">Login</a></p>

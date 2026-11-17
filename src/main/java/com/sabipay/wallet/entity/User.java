@@ -17,6 +17,9 @@ public class User {
 
     private String password;
 
+    @Column(length = 60)
+    private String transactionPin;
+
     public User() {
     }
 
@@ -24,6 +27,13 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String name, String email, String password, String transactionPin) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.transactionPin = transactionPin;
     }
 
     public Long getId() {
@@ -52,5 +62,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTransactionPin() {
+        return transactionPin;
+    }
+
+    public void setTransactionPin(String transactionPin) {
+        this.transactionPin = transactionPin;
     }
 }

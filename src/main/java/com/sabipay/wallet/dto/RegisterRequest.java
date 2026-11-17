@@ -5,6 +5,7 @@ public class RegisterRequest {
     private String name;
     private String email;
     private String password;
+    private String transactionPin;
 
     public RegisterRequest() {
     }
@@ -31,5 +32,13 @@ public class RegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTransactionPin() {
+        return transactionPin;
+    }
+
+    public void setTransactionPin(String transactionPin) {
+        this.transactionPin = transactionPin;
     }
 }

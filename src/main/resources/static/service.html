@@ -9,24 +9,99 @@
 </head>
 
 <body>
-    <header class="topbar"><a class="brand" href="index.html"><span class="logo-mark small">S</span>SabiPay</a><a
-            class="avatar" href="me.html">A</a></header>
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="logo-mark small">S</span>SabiPay
+        </a>
+        <a class="avatar" id="topbarAvatar" href="me.html">A</a>
+    </header>
+
     <main class="app-main">
         <div class="page-heading">
             <h1>Services</h1>
             <p>Everything you need in one place.</p>
         </div>
-        <div class="service-grid large"><a href="#"><span>🏦</span><b>Bank Transfer</b><small>Send money to other
-                    banks</small></a><a href="#"><span>📱</span><b>Airtime</b><small>Buy airtime instantly</small></a><a
-                href="#"><span>🌐</span><b>Data</b><small>Purchase data bundles</small></a><a
-                href="#"><span>💡</span><b>Pay Bills</b><small>Pay electricity and bills</small></a><a
-                href="#"><span>🎰</span><b>Betting</b><small>Fund your betting wallet</small></a><a
-                href="#"><span>📈</span><b>Invest</b><small>Grow your money</small></a><a
-                href="#"><span>💰</span><b>Loans</b><small>Explore loan options</small></a></div>
+
+        <div class="service-grid large">
+            <a href="index.html?action=transfer" class="service-item" id="serviceTransfer">
+                <span>🏦</span>
+                <b>Bank Transfer</b>
+                <small>Send money to other banks</small>
+            </a>
+
+            <a href="#" class="service-item" data-service="airtime">
+                <span>📱</span>
+                <b>Airtime</b>
+                <small>Buy airtime instantly</small>
+            </a>
+
+            <a href="#" class="service-item" data-service="data">
+                <span>🌐</span>
+                <b>Data</b>
+                <small>Purchase data bundles</small>
+            </a>
+
+            <a href="#" class="service-item" data-service="bills">
+                <span>💡</span>
+                <b>Pay Bills</b>
+                <small>Pay electricity and bills</small>
+            </a>
+
+            <a href="#" class="service-item" data-service="betting">
+                <span>🎰</span>
+                <b>Betting</b>
+                <small>Fund your betting wallet</small>
+            </a>
+
+            <a href="#" class="service-item" data-service="invest">
+                <span>📈</span>
+                <b>Invest</b>
+                <small>Grow your money with 15% ROI</small>
+            </a>
+
+            <a href="#" class="service-item" data-service="loans">
+                <span>💰</span>
+                <b>Loans</b>
+                <small>Instant low-interest credit</small>
+            </a>
+        </div>
     </main>
-    <nav class="bottom-nav"><a href="index.html">🏠<span>Home</span></a><a
-            href="reward.html">🎁<span>Rewards</span></a><a class="active"
-            href="service.html">🛠️<span>Services</span></a><a href="me.html">👤<span>Me</span></a></nav>
+
+    <!-- =====================================
+         INTERACTIVE SERVICE MODAL
+    ====================================== -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="transfer-modal">
+            <div class="modal-header">
+                <div>
+                    <h2 id="serviceModalTitle">Service</h2>
+                    <p id="serviceModalSubtitle">Complete your transaction</p>
+                </div>
+                <button class="close-modal" id="closeServiceModal" type="button">&times;</button>
+            </div>
+
+            <form id="serviceForm" style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
+                <div id="serviceFieldsContainer" style="display: flex; flex-direction: column; gap: 12px;"></div>
+
+                <label for="servicePin">4-Digit Transaction PIN</label>
+                <div class="password-wrap" style="position: relative;">
+                    <input id="servicePin" type="password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="Enter 4-digit PIN" required>
+                    <button type="button" class="password-toggle" data-target="servicePin">👁️</button>
+                </div>
+
+                <button class="primary-btn" id="serviceSubmitBtn" type="submit" style="margin-top: 10px;">Confirm & Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html">🏠<span>Home</span></a>
+        <a href="reward.html">🎁<span>Rewards</span></a>
+        <a class="active" href="service.html">🛠️<span>Services</span></a>
+        <a href="me.html">👤<span>Me</span></a>
+    </nav>
+
+    <script src="js/app.js"></script>
 </body>
 
 </html>

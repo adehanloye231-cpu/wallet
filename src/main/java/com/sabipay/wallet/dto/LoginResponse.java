@@ -6,12 +6,22 @@ public class LoginResponse {
     private String name;
     private String email;
     private String message;
+    private boolean hasPin;
 
     public LoginResponse(Long userId, String name, String email, String message) {
         this.userId = userId;
         this.name = name;
         this.email = email;
         this.message = message;
+        this.hasPin = false;
+    }
+
+    public LoginResponse(Long userId, String name, String email, String message, boolean hasPin) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.message = message;
+        this.hasPin = hasPin;
     }
 
     public Long getUserId() {
@@ -28,5 +38,9 @@ public class LoginResponse {
 
     public String getMessage() {
         return message;
+    }
+
+    public boolean isHasPin() {
+        return hasPin;
     }
 }
