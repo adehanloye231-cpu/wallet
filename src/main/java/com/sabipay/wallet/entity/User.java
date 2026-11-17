@@ -17,7 +17,7 @@ public class User {
 
     private String password;
 
-    @Column(length = 60)
+    @Column(length = 255)
     private String transactionPin;
 
     public User() {
