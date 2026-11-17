@@ -1,12 +1,14 @@
 package com.sabipay.wallet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,9 +23,13 @@ import org.springframework.web.server.ResponseStatusException;
 import com.sabipay.wallet.controller.UserController;
 import com.sabipay.wallet.dto.FundRequest;
 import com.sabipay.wallet.dto.PinRequest;
+import com.sabipay.wallet.dto.TransactionResponse;
 import com.sabipay.wallet.dto.WalletResponse;
+import com.sabipay.wallet.entity.Transaction;
 import com.sabipay.wallet.entity.User;
 import com.sabipay.wallet.entity.Wallet;
+import com.sabipay.wallet.repository.TransactionRepository;
+import com.sabipay.wallet.repository.UserRepository;
 import com.sabipay.wallet.repository.WalletRepository;
 import com.sabipay.wallet.service.UserService;
 
@@ -36,6 +42,12 @@ class UserControllerTest {
     @Mock
     private WalletRepository walletRepository;
 
+    @Mock
+    private TransactionRepository transactionRepository;
+
+    @Mock
+    private UserRepository userRepository;
+
     private UserController userController;
 
     private User sampleUser;
@@ -43,7 +55,7 @@ class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        userController = new UserController(userService, walletRepository);
+        userController = new UserController(userService, walletRepository, transactionRepository, userRepository);
         sampleUser = new User("Goodluck", "goodluck@example.com", "secret123");
         sampleWallet = new Wallet(sampleUser);
         sampleWallet.setBalanceMinor(10000L); // 100 Naira initial
@@ -158,5 +170,17 @@ class UserControllerTest {
 
         assertEquals(5000L, res.getBalanceMinor());
         assertEquals("₦50.00", res.getBalanceFormatted());
+    }
+
+    @Test
+    void testGetTransactions() {
+        Transaction tx = new Transaction(sampleUser, "CREDIT", "Top-up", 50000L, "REF-1", "Done");
+        when(transactionRepository.findByUser_IdOrderByCreatedAtDesc(1L)).thenReturn(List.of(tx));
+
+        List<TransactionResponse> list = userController.getTransactions(1L);
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("CREDIT", list.get(0).getType());
+        assertEquals("₦500.00", list.get(0).getAmountFormatted());
     }
 }

@@ -9,23 +9,93 @@
 </head>
 
 <body>
-    <header class="topbar"><a class="brand" href="index.html"><span class="logo-mark small">S</span>SabiPay</a></header>
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="logo-mark small">S</span>SabiPay
+        </a>
+    </header>
+
     <main class="app-main">
         <section class="profile-card">
             <div class="profile-avatar" id="profileAvatar">U</div>
             <h1 id="profileName">User</h1>
             <p id="profileEmail">user@example.com</p>
         </section>
+
         <section class="section">
-            <div class="settings-list"><a href="#">👤 Personal Information <b>›</b></a><a href="#">🔐 Security
-                    <b>›</b></a><a href="#">🔢 Transaction PIN <b>›</b></a><a href="#">🏦 Bank Accounts <b>›</b></a><a
-                    href="#">🔔 Notifications <b>›</b></a><a href="#">❓ Help & Support <b>›</b></a></div><button
-                class="logout-btn" id="logoutBtn">Logout</button>
+            <div class="settings-list">
+                <a href="#" id="mePersonalInfo">👤 Personal Information <b>›</b></a>
+                <a href="#" id="mePin">🔢 Transaction PIN & Security <b>›</b></a>
+                <a href="#" id="meAccounts">🏦 Saved Bank Accounts <b>›</b></a>
+                <a href="#" id="meNotifications">🔔 Notifications <b>›</b></a>
+                <a href="#" id="meSupport">❓ Help & Support <b>›</b></a>
+            </div>
+
+            <button class="logout-btn" id="logoutBtn">Logout</button>
         </section>
     </main>
-    <nav class="bottom-nav"><a href="index.html">🏠<span>Home</span></a><a
-            href="reward.html">🎁<span>Rewards</span></a><a href="service.html">🛠️<span>Services</span></a><a
-            class="active" href="me.html">👤<span>Me</span></a></nav>
+
+    <!-- =====================================
+         RESET PIN MODAL FOR ME PAGE
+    ====================================== -->
+    <div class="modal-overlay" id="resetPinModal">
+        <div class="transfer-modal">
+            <div class="modal-header">
+                <div>
+                    <h2>Manage Transaction PIN</h2>
+                    <p>Enter your password to update your 4-digit PIN</p>
+                </div>
+                <button class="close-modal" id="closeResetPin" type="button">&times;</button>
+            </div>
+            <form id="resetPinForm" style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
+                <label for="resetPassword">Account Password</label>
+                <div class="password-wrap" style="position: relative;">
+                    <input id="resetPassword" type="password" placeholder="Enter account password" required>
+                    <button type="button" class="password-toggle" data-target="resetPassword">👁️</button>
+                </div>
+
+                <label for="newPin">New 4-Digit PIN</label>
+                <div class="password-wrap" style="position: relative;">
+                    <input id="newPin" type="password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="Enter new 4-digit PIN" required>
+                    <button type="button" class="password-toggle" data-target="newPin">👁️</button>
+                </div>
+
+                <button class="primary-btn" type="submit" style="margin-top: 10px;">Save New PIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- =====================================
+         EDIT PROFILE MODAL
+    ====================================== -->
+    <div class="modal-overlay" id="editProfileModal">
+        <div class="transfer-modal">
+            <div class="modal-header">
+                <div>
+                    <h2>Personal Information</h2>
+                    <p>Update your profile name</p>
+                </div>
+                <button class="close-modal" id="closeEditProfile" type="button">&times;</button>
+            </div>
+            <form id="editProfileForm" style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
+                <label for="editFullName">Full Name</label>
+                <input id="editFullName" type="text" placeholder="Enter your full name" required>
+
+                <label>Email Address</label>
+                <input id="displayEmail" type="text" disabled style="background:#f5f5f5; color:#777; cursor:not-allowed;">
+
+                <button class="primary-btn" type="submit" style="margin-top: 10px;">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="index.html">🏠<span>Home</span></a>
+        <a href="reward.html">🎁<span>Rewards</span></a>
+        <a href="service.html">🛠️<span>Services</span></a>
+        <a class="active" href="me.html">👤<span>Me</span></a>
+    </nav>
+
     <script src="js/app.js"></script>
 </body>
 

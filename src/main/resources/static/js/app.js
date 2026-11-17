@@ -272,12 +272,25 @@ if (currentUser) {
     renderTransactions();
 }
 
-// Render Recent Transactions
-function renderTransactions() {
+// Render Recent Transactions (from DB with local fallback)
+async function renderTransactions() {
     const list = document.getElementById("transactionList");
     if (!list || !currentUser) return;
 
-    const transactions = currentUser.transactions || [];
+    let transactions = [];
+    if (currentUser.id) {
+        try {
+            const res = await fetch("/api/users/" + currentUser.id + "/transactions");
+            if (res.ok) {
+                transactions = await res.json();
+            }
+        } catch (_) {}
+    }
+
+    if (!transactions || transactions.length === 0) {
+        transactions = currentUser.transactions || [];
+    }
+
     if (transactions.length === 0) {
         list.innerHTML = `
             <div class="transaction">
@@ -290,11 +303,12 @@ function renderTransactions() {
         return;
     }
 
-    list.innerHTML = transactions.slice(0, 5).map(tx => {
-        const isCredit = tx.type === "credit" || tx.type === "Top-up" || tx.type === "Reward";
+    list.innerHTML = transactions.slice(0, 8).map(tx => {
+        const isCredit = tx.type === "CREDIT" || tx.type === "credit" || tx.type === "Top-up" || tx.type === "Reward";
         const sign = isCredit ? "+" : "-";
         const icon = isCredit ? "💰" : (tx.icon || "💸");
         const color = isCredit ? "#2e7d32" : "#c62828";
+        const displayAmount = tx.amountFormatted || formatMoney(tx.amount || (tx.amountMinor / 100));
 
         return `
             <div class="transaction" style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #eee;">
@@ -302,11 +316,11 @@ function renderTransactions() {
                     <span style="font-size:24px;">${icon}</span>
                     <div>
                         <b style="display:block; font-size:14px;">${tx.title || "Transaction"}</b>
-                        <small style="color:#777;">${tx.date || "Just now"}</small>
+                        <small style="color:#777;">${tx.dateFormatted || tx.date || "Recent"}</small>
                     </div>
                 </div>
                 <div style="font-weight:700; color:${color}; font-size:14px;">
-                    ${sign}${formatMoney(tx.amount)}
+                    ${sign}${displayAmount}
                 </div>
             </div>`;
     }).join("");
@@ -1110,5 +1124,105 @@ if (logoutBtn) {
             localStorage.removeItem("sabipayCurrentUser");
             window.location.href = "login.html";
         }
+    });
+}
+
+// =========================================================
+// ME / SETTINGS HANDLERS
+// =========================================================
+
+const mePersonalInfo = document.getElementById("mePersonalInfo");
+const editProfileModal = document.getElementById("editProfileModal");
+const closeEditProfile = document.getElementById("closeEditProfile");
+const editProfileForm = document.getElementById("editProfileForm");
+const mePin = document.getElementById("mePin");
+const meAccounts = document.getElementById("meAccounts");
+const meNotifications = document.getElementById("meNotifications");
+const meSupport = document.getElementById("meSupport");
+
+if (mePersonalInfo && editProfileModal) {
+    mePersonalInfo.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (!currentUser) return;
+        document.getElementById("editFullName").value = currentUser.name || "";
+        document.getElementById("displayEmail").value = currentUser.email || "";
+        editProfileModal.classList.add("active");
+    });
+}
+
+if (closeEditProfile && editProfileModal) {
+    closeEditProfile.addEventListener("click", () => editProfileModal.classList.remove("active"));
+}
+
+if (editProfileModal) {
+    editProfileModal.addEventListener("click", (e) => {
+        if (e.target === editProfileModal) editProfileModal.classList.remove("active");
+    });
+}
+
+if (editProfileForm) {
+    editProfileForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const newName = document.getElementById("editFullName").value.trim();
+        if (!newName) return;
+
+        try {
+            const res = await fetch("/api/users/" + currentUser.id + "/profile", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: newName })
+            });
+
+            if (res.ok) {
+                const updated = await res.json();
+                currentUser.name = updated.name;
+                saveCurrentUser(currentUser);
+
+                const profileName = document.getElementById("profileName");
+                if (profileName) profileName.textContent = updated.name;
+                document.querySelectorAll(".avatar, #profileAvatar").forEach(el => {
+                    el.textContent = updated.name.charAt(0).toUpperCase();
+                });
+
+                editProfileModal.classList.remove("active");
+                alert("Profile name updated successfully!");
+            }
+        } catch (err) {
+            alert("Error updating profile: " + err.message);
+        }
+    });
+}
+
+if (mePin && resetPinModal) {
+    mePin.addEventListener("click", function (e) {
+        e.preventDefault();
+        resetPinModal.classList.add("active");
+    });
+}
+
+if (meAccounts) {
+    meAccounts.addEventListener("click", function (e) {
+        e.preventDefault();
+        const beneficiaries = currentUser ? (currentUser.beneficiaries || []) : [];
+        if (beneficiaries.length === 0) {
+            alert("You have no saved bank accounts yet. Saved accounts from transfers will appear here.");
+        } else {
+            const listStr = beneficiaries.map((b, i) => `${i + 1}. ${b.name} - ${b.bank} (${b.accountNumber})`).join("\n");
+            alert("Saved Bank Accounts:\n\n" + listStr);
+        }
+    });
+}
+
+if (meNotifications) {
+    meNotifications.addEventListener("click", function (e) {
+        e.preventDefault();
+        alert("SabiPay Notifications 🔔\n\n- Instant transaction SMS alerts: Active\n- In-App payment notifications: Active\n- Login security alerts: Active");
+    });
+}
+
+if (meSupport) {
+    meSupport.addEventListener("click", function (e) {
+        e.preventDefault();
+        alert("SabiPay Help & Customer Support ❓\n\nEmail: support@sabipay.com\nPhone: +234-800-SABIPAY (0800 7224 729)\nWhatsApp: +234 812 345 6789\n\nWe are available 24/7 to help you!");
     });
 }
